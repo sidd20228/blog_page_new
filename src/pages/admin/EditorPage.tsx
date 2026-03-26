@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import DOMPurify from "dompurify";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
@@ -427,7 +428,7 @@ export default function EditorPage() {
                         </h2>
                         <div
                             className="prose-blog text-sm"
-                            dangerouslySetInnerHTML={{ __html: editor.getHTML() }}
+                            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(editor.getHTML()) }}
                         />
                     </div>
                 )}

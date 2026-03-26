@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import DOMPurify from "dompurify";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Helmet } from "react-helmet-async";
@@ -126,7 +127,7 @@ export default function PostPage() {
                             {/* Content */}
                             <div
                                 className="prose-blog"
-                                dangerouslySetInnerHTML={{ __html: post.content }}
+                                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
                             />
                         </article>
 

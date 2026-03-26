@@ -1,6 +1,7 @@
 import { Password } from "@convex-dev/auth/providers/Password";
 import { convexAuth } from "@convex-dev/auth/server";
 import type { DataModel } from "./_generated/dataModel";
+import type { QueryCtx, MutationCtx } from "./_generated/server";
 
 const CustomPassword = Password<DataModel>({
     profile(params) {
@@ -35,3 +36,19 @@ export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
         },
     },
 });
+
+/**
+ * Auth guard: verifies the caller is authenticated and has admin role.
+ * Throws if not. Returns the userId on success.
+ */
+export async function requireAdmin(ctx: QueryCtx | MutationCtx) {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) {
+        throw new Error("Not authenticated");
+    }
+    const user = await ctx.db.get(userId);
+    if (!user || (user.role && user.role !== "admin")) {
+        throw new Error("Unauthorized: admin role required");
+    }
+    return userId;
+}

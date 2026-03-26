@@ -1,6 +1,6 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
-import { auth } from "./auth";
+import { requireAdmin } from "./auth";
 
 // Get settings for the blog
 export const getSettings = query({
@@ -22,8 +22,7 @@ export const updateSettings = mutation({
         postsPerPage: v.optional(v.number()),
     },
     handler: async (ctx, args) => {
-        const userId = await auth.getUserId(ctx);
-        if (!userId) throw new Error("Not authenticated");
+        await requireAdmin(ctx);
 
         const existing = await ctx.db.query("settings").first();
         const updates: Record<string, unknown> = {};
@@ -50,8 +49,7 @@ export const updateUserProfile = mutation({
         name: v.optional(v.string()),
     },
     handler: async (ctx, args) => {
-        const userId = await auth.getUserId(ctx);
-        if (!userId) throw new Error("Not authenticated");
+        const userId = await requireAdmin(ctx);
 
         const updates: Record<string, unknown> = {};
         if (args.name !== undefined) updates.name = args.name;

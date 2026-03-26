@@ -1,5 +1,6 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
+import { requireAdmin } from "./auth";
 
 const toTagSlug = (value: string) =>
     value
@@ -43,7 +44,7 @@ const ensureTagsExist = async (ctx: any, tags: string[]) => {
     }
 };
 
-// ── Queries ──────────────────────────────────────────────────────────────
+// ── Public Queries (no auth required) ────────────────────────────────────
 
 export const getPublishedPosts = query({
     args: {
@@ -96,7 +97,7 @@ export const getPostBySlug = query({
             .withIndex("by_slug", (q) => q.eq("slug", args.slug))
             .first();
 
-        if (!post) return null;
+        if (!post || post.status !== "published") return null;
 
         const author = await ctx.db.get(post.authorId);
         return {
@@ -171,9 +172,11 @@ export const searchPosts = query({
     },
 });
 
-// Admin queries
+// ── Admin Queries (auth required) ────────────────────────────────────────
+
 export const getAllPosts = query({
     handler: async (ctx) => {
+        await requireAdmin(ctx);
         const posts = await ctx.db.query("posts").order("desc").collect();
 
         const postsWithAuthors = await Promise.all(
@@ -195,6 +198,7 @@ export const getAllPosts = query({
 export const getPostById = query({
     args: { id: v.id("posts") },
     handler: async (ctx, args) => {
+        await requireAdmin(ctx);
         const post = await ctx.db.get(args.id);
         if (!post) return null;
 
@@ -210,6 +214,7 @@ export const getPostById = query({
 
 export const getPostStats = query({
     handler: async (ctx) => {
+        await requireAdmin(ctx);
         const all = await ctx.db.query("posts").collect();
         const published = all.filter((p) => p.status === "published");
         const drafts = all.filter((p) => p.status === "draft");
@@ -228,7 +233,11 @@ export const getRecentPosts = query({
     args: { limit: v.optional(v.number()) },
     handler: async (ctx, args) => {
         const limit = args.limit ?? 5;
-        const posts = await ctx.db.query("posts").order("desc").take(limit);
+        const posts = await ctx.db
+            .query("posts")
+            .withIndex("by_status", (q) => q.eq("status", "published"))
+            .order("desc")
+            .take(limit);
 
         const postsWithAuthors = await Promise.all(
             posts.map(async (post) => {
@@ -246,7 +255,7 @@ export const getRecentPosts = query({
     },
 });
 
-// ── Mutations ────────────────────────────────────────────────────────────
+// ── Mutations (auth required) ────────────────────────────────────────────
 
 export const createPost = mutation({
     args: {
@@ -255,12 +264,19 @@ export const createPost = mutation({
         content: v.string(),
         excerpt: v.string(),
         authorId: v.id("users"),
-        status: v.string(),
+        status: v.union(v.literal("draft"), v.literal("published"), v.literal("scheduled")),
         tags: v.array(v.string()),
         coverImage: v.optional(v.string()),
         publishDate: v.optional(v.number()),
     },
     handler: async (ctx, args) => {
+        const userId = await requireAdmin(ctx);
+
+        // Ensure the authorId matches the authenticated user
+        if (args.authorId !== userId) {
+            throw new Error("Cannot create posts as another user");
+        }
+
         // Check slug uniqueness
         const existing = await ctx.db
             .query("posts")
@@ -299,12 +315,13 @@ export const updatePost = mutation({
         slug: v.optional(v.string()),
         content: v.optional(v.string()),
         excerpt: v.optional(v.string()),
-        status: v.optional(v.string()),
+        status: v.optional(v.union(v.literal("draft"), v.literal("published"), v.literal("scheduled"))),
         tags: v.optional(v.array(v.string())),
         coverImage: v.optional(v.string()),
         publishDate: v.optional(v.number()),
     },
     handler: async (ctx, args) => {
+        await requireAdmin(ctx);
         const { id, ...updates } = args;
 
         // If slug is being changed, check uniqueness
@@ -339,11 +356,12 @@ export const updatePost = mutation({
 export const deletePost = mutation({
     args: { id: v.id("posts") },
     handler: async (ctx, args) => {
+        await requireAdmin(ctx);
         await ctx.db.delete(args.id);
     },
 });
 
-// Publish scheduled posts (called by cron)
+// Publish scheduled posts (called by cron — internal, no user auth needed)
 export const publishScheduledPosts = mutation({
     handler: async (ctx) => {
         const now = Date.now();
