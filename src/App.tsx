@@ -1,9 +1,8 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "sonner";
 
 // Blog pages
 import BlogLayout from "./layouts/BlogLayout";
-import HomePage from "./pages/blog/HomePage";
 import BlogListPage from "./pages/blog/BlogListPage";
 import PostPage from "./pages/blog/PostPage";
 import TagsPage from "./pages/blog/TagsPage";
@@ -39,7 +38,7 @@ function App() {
       <Routes>
         {/* Blog Routes */}
         <Route element={<BlogLayout />}>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<Navigate to="/blog" replace />} />
           <Route path="/blog" element={<BlogListPage />} />
           <Route path="/blog/:slug" element={<PostPage />} />
           <Route path="/tags" element={<TagsPage />} />

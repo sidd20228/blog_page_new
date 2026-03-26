@@ -20,7 +20,7 @@ export default function TagBadge({
 
     const classes = cn(
         "inline-flex items-center gap-1.5 border border-primary/30 text-primary font-mono uppercase tracking-wider transition-all duration-300",
-        "hover:border-primary hover:bg-primary/10 hover:shadow-glow-cyan",
+        "hover:border-primary hover:bg-primary/10",
         {
             "text-[10px] px-2 py-0.5": size === "sm",
             "text-xs px-3 py-1": size === "md",

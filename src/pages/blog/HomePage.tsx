@@ -12,10 +12,10 @@ export default function HomePage() {
     return (
         <>
             <Helmet>
-                <title>BlogCMS — Modern Serverless Blog</title>
+                <title>Rochit Singh — Trading Insights</title>
                 <meta
                     name="description"
-                    content="A modern serverless blog platform powered by React and Convex. Fast, scalable, and beautifully designed."
+                    content="Trading insights, market analysis, and educational content from Rochit Singh. Sharp precision, cutting-edge strategies."
                 />
             </Helmet>
 
@@ -29,55 +29,56 @@ export default function HomePage() {
                         <div className="inline-flex items-center gap-2 px-4 py-2 border border-primary/50 mb-6 opacity-0 animate-fade-in-up">
                             <span className="w-2 h-2 bg-primary animate-pulse" />
                             <span className="font-display text-xs font-medium text-primary uppercase tracking-widest">
-                                Powered by Convex
+                                Trading Insights & Analysis
                             </span>
                         </div>
 
                         <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6 opacity-0 animate-fade-in-up delay-100">
-                            <span className="text-foreground">The Modern</span>
+                            <span className="text-foreground">Trading</span>
                             <br />
                             <span className="gradient-text-matrix text-glow-cyan">
-                                Blog Platform
+                                Insights
                             </span>
                         </h1>
 
                         <p className="text-sm sm:text-lg text-foreground-muted max-w-2xl mx-auto mb-10 leading-relaxed opacity-0 animate-fade-in-up delay-200">
-                            A serverless blog CMS with real-time updates, image uploads,
-                            rich text editing, and a professional admin dashboard.
+                            Explore market analysis, actionable trading strategies, and in-depth educational content designed to elevate your trading journey.
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0 animate-fade-in-up delay-300">
                             <Link
                                 to="/blog"
-                                className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground font-display text-sm font-medium hover:shadow-glow-green transition-all duration-300 group"
+                                className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground font-display text-sm font-medium transition-all duration-300 group"
                             >
-                                Read Blog
+                                Read Latest Posts
                                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                             </Link>
-                            <Link
-                                to="/admin"
-                                className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary font-display text-sm font-medium hover:bg-primary/10 hover:shadow-glow-cyan transition-all duration-300"
+                            <a
+                                href="https://rochitsingh.com/courses"
+                                className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary font-display text-sm font-medium hover:bg-primary/10 transition-all duration-300"
                             >
-                                Admin Dashboard
-                            </Link>
+                                Explore Courses
+                            </a>
                         </div>
 
                         {/* Stats */}
-                        <div className="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-border opacity-0 animate-fade-in-up delay-500">
-                            {[
-                                { value: "∞", label: "Scalability" },
-                                { value: "<1s", label: "Load Time" },
-                                { value: "100%", label: "Serverless" },
-                            ].map((stat) => (
-                                <div key={stat.label} className="text-center">
-                                    <div className="font-mono text-2xl sm:text-3xl font-bold text-primary text-glow-cyan">
-                                        {stat.value}
+                        <div className="flex justify-center mt-16 pt-8 border-t border-border opacity-0 animate-fade-in-up delay-500">
+                            <div className="flex items-center gap-8 sm:gap-16">
+                                {[
+                                    { value: "100+", label: "In-Depth Articles" },
+                                    { value: "50k+", label: "Active Traders" },
+                                    { value: "1M+", label: "Views Monthly" },
+                                ].map((stat, i) => (
+                                    <div key={stat.label} className={`text-center ${i !== 2 ? 'pr-8 sm:pr-16 border-r border-border' : ''}`}>
+                                        <div className="font-mono text-2xl sm:text-3xl font-bold text-primary text-glow-cyan">
+                                            {stat.value}
+                                        </div>
+                                        <div className="font-display text-xs text-foreground-muted uppercase tracking-widest mt-2 whitespace-pre-wrap">
+                                            {stat.label.replace(' ', '\n')}
+                                        </div>
                                     </div>
-                                    <div className="font-display text-xs text-foreground-muted uppercase tracking-widest mt-2">
-                                        {stat.label}
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -132,7 +133,7 @@ export default function HomePage() {
                                 </p>
                                 <Link
                                     to="/admin/editor"
-                                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground font-display text-sm hover:shadow-glow-cyan transition-all"
+                                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground font-display text-sm transition-all"
                                 >
                                     Create First Post
                                 </Link>

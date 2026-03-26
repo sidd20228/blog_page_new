@@ -31,7 +31,7 @@ export default function SearchPage() {
     return (
         <>
             <Helmet>
-                <title>Search — BlogCMS</title>
+                <title>Search — Rochit Singh</title>
                 <meta name="description" content="Search blog posts" />
             </Helmet>
 

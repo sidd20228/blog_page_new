@@ -2,7 +2,7 @@ import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Link } from "react-router-dom";
 import { FileText, FileCheck, Clock, PenTool, ArrowRight } from "lucide-react";
-import { formatDateShort, timeAgo } from "../../lib/utils";
+import { timeAgo } from "../../lib/utils";
 
 export default function DashboardPage() {
     const stats = useQuery(api.posts.getPostStats);

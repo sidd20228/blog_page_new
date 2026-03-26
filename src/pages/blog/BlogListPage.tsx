@@ -10,7 +10,7 @@ export default function BlogListPage() {
     return (
         <>
             <Helmet>
-                <title>Blog — BlogCMS</title>
+                <title>Blog — Rochit Singh</title>
                 <meta name="description" content="Browse all published blog posts." />
             </Helmet>
 

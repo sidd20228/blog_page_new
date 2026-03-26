@@ -49,7 +49,7 @@ export default function PostPage() {
     return (
         <>
             <Helmet>
-                <title>{post.title} — BlogCMS</title>
+                <title>{post.title} — Rochit Singh</title>
                 <meta name="description" content={post.excerpt} />
                 <meta property="og:title" content={post.title} />
                 <meta property="og:description" content={post.excerpt} />

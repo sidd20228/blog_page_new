@@ -17,7 +17,7 @@ export default function NotFoundPage() {
                 </p>
                 <Link
                     to="/"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-display text-sm hover:shadow-glow-cyan transition-all group"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-display text-sm transition-all group"
                 >
                     <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
                     Back to Home

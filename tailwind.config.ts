@@ -123,8 +123,8 @@ export default {
                 'glow-pink': '0 0 20px rgba(255, 0, 128, 0.5), 0 0 40px rgba(255, 0, 128, 0.3)',
                 'glow-gold': '0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.3)',
                 'inner-glow': 'inset 0 0 40px rgba(0, 245, 255, 0.05)',
-                'card': '0 8px 32px rgba(0, 0, 0, 0.4)',
-                'card-hover': '0 16px 48px rgba(0, 0, 0, 0.6)',
+                'card': '0 8px 32px rgba(0, 0, 0, 0.08)',
+                'card-hover': '0 16px 48px rgba(0, 0, 0, 0.14)',
             },
             backgroundImage: {
                 'gradient-cyber': 'linear-gradient(135deg, #00f5ff, #0091ff)',

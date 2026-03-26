@@ -38,7 +38,7 @@ export default function Sidebar() {
                     />
                     <button
                         type="submit"
-                        className="px-3 py-2 bg-primary text-primary-foreground hover:shadow-glow-cyan transition-all"
+                        className="px-3 py-2 bg-primary text-primary-foreground transition-all"
                     >
                         <Search className="w-4 h-4" />
                     </button>

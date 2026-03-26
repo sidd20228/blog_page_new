@@ -12,7 +12,7 @@ export default function TagPostsPage() {
     return (
         <>
             <Helmet>
-                <title>#{slug} — BlogCMS</title>
+                <title>#{slug} — Rochit Singh</title>
                 <meta name="description" content={`Posts tagged with #${slug}`} />
             </Helmet>
 

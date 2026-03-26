@@ -7,6 +7,7 @@ import {
     LayoutDashboard,
     FileText,
     PenTool,
+    TrendingUp,
     Image,
     Settings,
     ChevronLeft,
@@ -39,11 +40,11 @@ export default function AdminSidebar() {
             <div className="h-16 flex items-center px-4 border-b border-border">
                 <Link to="/admin" className="flex items-center gap-3 overflow-hidden">
                     <div className="w-8 h-8 border border-primary flex items-center justify-center shrink-0">
-                        <PenTool className="w-4 h-4 text-primary" />
+                        <TrendingUp className="w-4 h-4 text-primary" />
                     </div>
                     {!collapsed && (
                         <span className="font-display text-lg font-bold text-foreground tracking-tight whitespace-nowrap">
-                            BLOG<span className="text-primary">CMS</span>
+                            ROCHIT<span className="text-primary">SINGH</span>
                         </span>
                     )}
                 </Link>
@@ -75,7 +76,7 @@ export default function AdminSidebar() {
             <div className="border-t border-border p-3 space-y-2">
                 {/* View Blog */}
                 <Link
-                    to="/"
+                    to="/blog"
                     className="flex items-center gap-3 px-3 py-2 text-xs font-display text-foreground-subtle hover:text-primary transition-colors"
                 >
                     <ChevronLeft className="w-3.5 h-3.5 shrink-0" />

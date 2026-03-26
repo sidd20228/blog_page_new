@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Search, PenTool } from "lucide-react";
+import { Menu, X, Search, TrendingUp, ExternalLink } from "lucide-react";
 import { cn } from "../../lib/utils";
 
 const navLinks = [
-    { label: "Home", href: "/" },
     { label: "Blog", href: "/blog" },
     { label: "Tags", href: "/tags" },
 ];
@@ -39,17 +38,24 @@ export default function Navigation() {
                 <div className="container mx-auto px-4 sm:px-6 lg:px-12">
                     <div className="flex items-center justify-between h-16 sm:h-20">
                         {/* Logo */}
-                        <Link to="/" className="flex items-center gap-2 sm:gap-3 group">
-                            <div className="w-8 sm:w-10 h-8 sm:h-10 border border-primary flex items-center justify-center group-hover:shadow-glow-cyan transition-shadow duration-300">
-                                <PenTool className="w-4 sm:w-5 h-4 sm:h-5 text-primary" />
+                        <a href="https://rochitsingh.com" className="flex items-center gap-2 sm:gap-3 group">
+                            <div className="w-8 sm:w-10 h-8 sm:h-10 border border-primary flex items-center justify-center transition-shadow duration-300">
+                                <TrendingUp className="w-4 sm:w-5 h-4 sm:h-5 text-primary" />
                             </div>
                             <span className="font-display text-lg sm:text-xl font-bold text-foreground tracking-tight">
-                                BLOG<span className="text-primary">CMS</span>
+                                ROCHIT<span className="text-primary">SINGH</span>
                             </span>
-                        </Link>
+                        </a>
 
-                        {/* Desktop Navigation */}
                         <nav className="hidden lg:flex items-center gap-8">
+                            <a
+                                href="https://rochitsingh.com"
+                                className="relative font-display text-sm font-medium text-foreground-muted hover:text-primary transition-colors duration-300 group flex items-center gap-1.5"
+                            >
+                                Main Site
+                                <ExternalLink className="w-3.5 h-3.5" />
+                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                            </a>
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.label}
@@ -80,12 +86,7 @@ export default function Navigation() {
                             >
                                 <Search className="w-4 h-4" />
                             </Link>
-                            <Link
-                                to="/admin"
-                                className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground font-display text-sm font-medium hover:shadow-glow-cyan transition-all duration-300"
-                            >
-                                Admin
-                            </Link>
+                            
                         </div>
 
                         {/* Mobile Menu Toggle */}
@@ -108,14 +109,14 @@ export default function Navigation() {
             >
                 <div className="container mx-auto px-6 py-6">
                     <div className="flex items-center justify-between mb-16">
-                        <Link to="/" className="flex items-center gap-3">
+                        <a href="https://rochitsingh.com" className="flex items-center gap-3">
                             <div className="w-10 h-10 border border-primary flex items-center justify-center">
-                                <PenTool className="w-5 h-5 text-primary" />
+                                <TrendingUp className="w-5 h-5 text-primary" />
                             </div>
                             <span className="font-display text-xl font-bold text-foreground tracking-tight">
-                                BLOG<span className="text-primary">CMS</span>
+                                ROCHIT<span className="text-primary">SINGH</span>
                             </span>
-                        </Link>
+                        </a>
                         <button
                             className="w-10 h-10 border border-border flex items-center justify-center text-foreground hover:border-primary hover:text-primary transition-colors duration-300"
                             onClick={() => setIsMobileMenuOpen(false)}
@@ -125,6 +126,14 @@ export default function Navigation() {
                     </div>
 
                     <nav className="flex flex-col gap-6">
+                        <a
+                            href="https://rochitsingh.com"
+                            className="font-display text-3xl font-bold text-foreground hover:text-primary transition-colors duration-300 opacity-0 animate-fade-in-left flex items-center gap-3"
+                            style={{ animationDelay: "50ms", animationFillMode: "forwards" }}
+                        >
+                            Main Site
+                            <ExternalLink className="w-6 h-6 text-foreground-muted" />
+                        </a>
                         {navLinks.map((link, index) => (
                             <Link
                                 key={link.label}
@@ -152,7 +161,7 @@ export default function Navigation() {
                         </Link>
                         <Link
                             to="/admin"
-                            className="inline-flex items-center justify-center gap-2 w-full px-4 py-3 bg-primary text-primary-foreground font-display text-sm font-medium hover:shadow-glow-cyan transition-all duration-300"
+                            className="inline-flex items-center justify-center gap-2 w-full px-4 py-3 bg-primary text-primary-foreground font-display text-sm font-medium transition-all duration-300"
                             onClick={() => setIsMobileMenuOpen(false)}
                         >
                             Admin Dashboard

@@ -9,7 +9,7 @@ export default function TagsPage() {
     return (
         <>
             <Helmet>
-                <title>Tags — BlogCMS</title>
+                <title>Tags — Rochit Singh</title>
                 <meta name="description" content="Browse all blog post tags." />
             </Helmet>
 

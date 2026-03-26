@@ -123,12 +123,25 @@ export default function EditorPage() {
         };
     }, [id, editor, title, slug, tags, status]);
 
+    const getTagsForSave = useCallback(() => {
+        const pending = tagInput.trim().replace(/^#+/, "");
+        if (!pending) return tags;
+        if (tags.some((t) => t.toLowerCase() === pending.toLowerCase())) return tags;
+        return [...tags, pending];
+    }, [tagInput, tags]);
+
     const handleSave = useCallback(
         async (silent = false) => {
             if (!editor || !user?._id || saving) return;
 
             const content = editor.getHTML();
             const autoExcerpt = excerpt || generateExcerpt(content);
+            const tagsToSave = getTagsForSave();
+
+            if (tagsToSave !== tags) {
+                setTags(tagsToSave);
+                setTagInput("");
+            }
 
             setSaving(true);
             try {
@@ -140,7 +153,7 @@ export default function EditorPage() {
                         content,
                         excerpt: autoExcerpt,
                         status,
-                        tags,
+                        tags: tagsToSave,
                         coverImage: coverImage || undefined,
                         publishDate: publishDate ? new Date(publishDate).getTime() : undefined,
                     });
@@ -153,7 +166,7 @@ export default function EditorPage() {
                         excerpt: autoExcerpt,
                         authorId: user._id,
                         status,
-                        tags,
+                        tags: tagsToSave,
                         coverImage: coverImage || undefined,
                         publishDate: publishDate ? new Date(publishDate).getTime() : undefined,
                     });
@@ -166,7 +179,7 @@ export default function EditorPage() {
                 setSaving(false);
             }
         },
-        [editor, user, id, title, slug, excerpt, status, tags, coverImage, publishDate, saving]
+        [editor, user, id, title, slug, excerpt, status, tags, coverImage, publishDate, saving, getTagsForSave]
     );
 
     const handlePublish = async () => {
@@ -208,12 +221,12 @@ export default function EditorPage() {
     };
 
     const handleAddTag = (tagName: string) => {
-        const trimmed = tagName.trim();
-        if (!trimmed || tags.includes(trimmed)) return;
+        const trimmed = tagName.trim().replace(/^#+/, "");
+        if (!trimmed || tags.some((t) => t.toLowerCase() === trimmed.toLowerCase())) return;
         setTags([...tags, trimmed]);
         setTagInput("");
         // Create tag in DB
-        createTag({ name: trimmed, slug: slugify(trimmed) });
+        void createTag({ name: trimmed, slug: slugify(trimmed) });
     };
 
     const handleRemoveTag = (tagToRemove: string) => {
@@ -230,7 +243,7 @@ export default function EditorPage() {
     const filteredSuggestions = allTags?.filter(
         (t) =>
             t.name.toLowerCase().includes(tagInput.toLowerCase()) &&
-            !tags.includes(t.name)
+            !tags.some((tag) => tag.toLowerCase() === t.name.toLowerCase())
     );
 
     if (!editor) return null;

@@ -11,6 +11,9 @@ const convex = new ConvexReactClient(
   import.meta.env.VITE_CONVEX_URL as string
 );
 
+// Apply light theme
+document.documentElement.classList.add("light");
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ConvexAuthProvider client={convex}>

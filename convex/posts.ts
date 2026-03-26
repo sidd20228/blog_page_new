@@ -1,6 +1,48 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 
+const toTagSlug = (value: string) =>
+    value
+        .toLowerCase()
+        .trim()
+        .replace(/^#+/, "")
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+
+const normalizeTags = (tags: string[]) => {
+    const result: string[] = [];
+    const seen = new Set<string>();
+
+    for (const tag of tags) {
+        const cleaned = tag.trim().replace(/^#+/, "");
+        if (!cleaned) continue;
+        const slug = toTagSlug(cleaned);
+        if (!slug || seen.has(slug)) continue;
+        seen.add(slug);
+        result.push(cleaned);
+    }
+
+    return result;
+};
+
+const ensureTagsExist = async (ctx: any, tags: string[]) => {
+    for (const name of tags) {
+        const slug = toTagSlug(name);
+        if (!slug) continue;
+
+        const existing = await ctx.db
+            .query("tags")
+            .withIndex("by_slug", (q: any) => q.eq("slug", slug))
+            .first();
+
+        if (!existing) {
+            await ctx.db.insert("tags", { name, slug });
+        }
+    }
+};
+
 // ── Queries ──────────────────────────────────────────────────────────────
 
 export const getPublishedPosts = query({
@@ -228,6 +270,9 @@ export const createPost = mutation({
             throw new Error(`A post with slug "${args.slug}" already exists.`);
         }
 
+        const normalizedTags = normalizeTags(args.tags);
+        await ensureTagsExist(ctx, normalizedTags);
+
         const now = Date.now();
         const id = await ctx.db.insert("posts", {
             title: args.title,
@@ -236,7 +281,7 @@ export const createPost = mutation({
             excerpt: args.excerpt,
             authorId: args.authorId,
             status: args.status,
-            tags: args.tags,
+            tags: normalizedTags,
             coverImage: args.coverImage,
             publishDate: args.publishDate,
             createdAt: now,
@@ -271,6 +316,11 @@ export const updatePost = mutation({
             if (existing && existing._id !== id) {
                 throw new Error(`A post with slug "${updates.slug}" already exists.`);
             }
+        }
+
+        if (updates.tags) {
+            updates.tags = normalizeTags(updates.tags);
+            await ensureTagsExist(ctx, updates.tags);
         }
 
         // Filter out undefined values

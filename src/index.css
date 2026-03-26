@@ -7,31 +7,31 @@
 @layer base {
   :root {
     /* Primary Dark Colors */
-    --background: 0 0% 4%;
-    --background-secondary: 0 0% 7%;
-    --background-tertiary: 0 0% 10%;
-    --background-elevated: 0 0% 12%;
-
-    --foreground: 0 0% 100%;
-    --foreground-secondary: 0 0% 80%;
-    --foreground-muted: 0 0% 60%;
-    --foreground-subtle: 0 0% 40%;
+    --background: 0 0% 15%;
+    --background-secondary: 0 0% 20%;
+    --background-tertiary: 0 0% 15%;
+    --background-elevated: 0 0% 18%;
+    
+    --foreground: 0 0% 98%;
+    --foreground-secondary: 0 0% 85%;
+    --foreground-muted: 0 0% 65%;
+    --foreground-subtle: 0 0% 45%;
 
     /* Card & Surface */
-    --card: 0 0% 7%;
+    --card: 0 0% 12%;
     --card-foreground: 0 0% 100%;
-    --card-border: 0 0% 15%;
+    --card-border: 0 0% 20%;
 
-    --popover: 0 0% 7%;
+    --popover: 0 0% 12%;
     --popover-foreground: 0 0% 100%;
 
     /* Accent Colors - Electric Cyan */
     --primary: 186 100% 50%;
-    --primary-foreground: 0 0% 4%;
-
+    --primary-foreground: 0 0% 9%;
+    
     /* Acid Green for CTAs */
     --accent: 153 100% 50%;
-    --accent-foreground: 0 0% 4%;
+    --accent-foreground: 0 0% 9%;
 
     /* Secondary - Neon Blue */
     --secondary: 210 100% 50%;
@@ -43,30 +43,92 @@
 
     /* Gold - Premium */
     --gold: 51 100% 50%;
-    --gold-foreground: 0 0% 4%;
+    --gold-foreground: 0 0% 9%;
 
     /* Muted */
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 65%;
 
     /* Borders */
-    --border: 0 0% 15%;
-    --border-subtle: 0 0% 10%;
-    --input: 0 0% 15%;
+    --border: 0 0% 20%;
+    --border-subtle: 0 0% 15%;
+    --input: 0 0% 20%;
     --ring: 186 100% 50%;
 
     /* Zero radius */
     --radius: 0px;
 
     /* Sidebar */
-    --sidebar-background: 0 0% 4%;
-    --sidebar-foreground: 0 0% 60%;
+    --sidebar-background: 0 0% 9%;
+    --sidebar-foreground: 0 0% 65%;
     --sidebar-primary: 186 100% 50%;
-    --sidebar-primary-foreground: 0 0% 4%;
-    --sidebar-accent: 0 0% 10%;
+    --sidebar-primary-foreground: 0 0% 9%;
+    --sidebar-accent: 0 0% 15%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 15%;
+    --sidebar-border: 0 0% 20%;
     --sidebar-ring: 186 100% 50%;
+  }
+
+  .dark {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
+  }
+
+  /* ───── Light Theme ───── */
+  .light {
+    --background: 0 0% 97%;
+    --background-secondary: 0 0% 94%;
+    --background-tertiary: 0 0% 91%;
+    --background-elevated: 0 0% 100%;
+
+    --foreground: 0 0% 9%;
+    --foreground-secondary: 0 0% 20%;
+    --foreground-muted: 0 0% 40%;
+    --foreground-subtle: 0 0% 55%;
+
+    /* Card & Surface */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
+    --card-border: 0 0% 87%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+
+    /* Accent Colors - slightly deeper for light bg readability */
+    --primary: 186 100% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    --accent: 153 65% 38%;
+    --accent-foreground: 0 0% 100%;
+
+    --secondary: 210 80% 48%;
+    --secondary-foreground: 0 0% 100%;
+
+    --destructive: 330 80% 48%;
+    --destructive-foreground: 0 0% 100%;
+
+    --gold: 51 95% 42%;
+    --gold-foreground: 0 0% 9%;
+
+    /* Muted */
+    --muted: 0 0% 92%;
+    --muted-foreground: 0 0% 45%;
+
+    /* Borders */
+    --border: 0 0% 85%;
+    --border-subtle: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 186 100% 38%;
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 95%;
+    --sidebar-foreground: 0 0% 35%;
+    --sidebar-primary: 186 100% 38%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 91%;
+    --sidebar-accent-foreground: 0 0% 9%;
+    --sidebar-border: 0 0% 85%;
+    --sidebar-ring: 186 100% 38%;
   }
 }
 

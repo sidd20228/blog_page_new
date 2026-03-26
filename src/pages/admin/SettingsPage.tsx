@@ -191,7 +191,7 @@ export default function SettingsPage() {
                 </h2>
 
                 <p className="text-xs text-foreground-subtle leading-relaxed">
-                    Control which email addresses can sign in via GitHub or Google OAuth.
+                    Control which email addresses can sign in to the admin dashboard.
                     If no emails are added, all OAuth logins are allowed.
                 </p>
 
