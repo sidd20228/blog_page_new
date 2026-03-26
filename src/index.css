@@ -277,7 +277,7 @@
   }
 
   .prose-blog {
-    @apply prose prose-lg max-w-none;
+    @apply prose prose-invert prose-lg max-w-none text-foreground-secondary;
   }
 
   .prose-blog img {
